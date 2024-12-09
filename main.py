@@ -18,6 +18,7 @@ import re
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from datasets import load_dataset
 
 nltk.download('vader_lexicon')
 nltk.download('punkt')
