@@ -1,0 +1,7 @@
+streamlit
+datasets
+nltk
+pandas
+matplotlib
+textblob
+scikit-learn
