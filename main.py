@@ -127,7 +127,7 @@ def main():
     decomposition()
   elif choice == "Textblob":
     textblob()
-  elif choice == "Vader Lexicon"
+  elif choice == "Vader Lexicon":
     vader_lexicon()
   elif choice == "Overall Performance":
     overall_performance()
