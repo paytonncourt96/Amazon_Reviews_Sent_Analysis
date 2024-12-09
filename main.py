@@ -72,7 +72,7 @@ def load_and_process_data():
 def decomposition():
   st.title("Methods")
   st.write("""
-  - **Text Preprocessing
+  - **Text Preprocessing**
   - **Feature Extraction**
   - **Sentiment Analysis**: We applied Vader Lexicon and Textblob to extract sentiment scores.
   """)
