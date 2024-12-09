@@ -117,6 +117,7 @@ def overall_performance(df):
   st.pyplot(fig)
 
 def main():
+  df = load_and_process_data()
   st.sidebar.title("Navigation")
   page_options = ["Home", "Methods", "Vader Lexicon", "Textblob", "Overall Performance"]
   choice = st.sidebar.selectbox("Go to", page_options)
