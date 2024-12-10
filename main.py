@@ -59,6 +59,8 @@ def home_page():
     st.title("Home")
     st.title("Amazon Reviews Sentiment Analysis app")
     st.write("Katherine Beyer, Courtney Shammas, Onur Tekiner")
+    image_url = "https://raw.githubusercontent.com/paytonncourt96/Amazon_Reviews_Sent_Analysis/main/amazon_image.png"
+    st.image(image_url, caption="Amazon Reviews Sentiment Analysis", use_column_width=True)
     st.write("""
         Navigate through the sidebar to explore:
         - Methods
