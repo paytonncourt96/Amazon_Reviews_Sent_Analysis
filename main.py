@@ -15,6 +15,7 @@ from nltk.stem import WordNetLemmatizer
 # Ensure required NLTK data is downloaded
 nltk.download('vader_lexicon')
 nltk.download('punkt')
+nltk.download('punkt_tab')
 nltk.download('stopwords')
 nltk.download('wordnet')
 
