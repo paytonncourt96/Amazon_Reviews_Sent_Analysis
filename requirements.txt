@@ -1,7 +1,6 @@
 streamlit
-datasets
-nltk
 pandas
-matplotlib
+nltk
 textblob
-scikit-learn
+matplotlib
+requests
