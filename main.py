@@ -73,6 +73,9 @@ def decomposition():
     st.write("""
         **Methods used in this analysis:**
         - **Text Preprocessing**: Stopword removal, tokenization, lemmatization.
+        - **Feature Extraction**:
+            - CountVectorizer was applied to convert the cleaned text into a matrix of token counts.
+            - TF-IDF (Term Frequency-Inverse Document Frequency) was used to create a feature matrix, capturing the importance of unigrams and bigrams in the text.
         - **Sentiment Analysis**: Utilizing Vader Lexicon and TextBlob.
     """)
 
