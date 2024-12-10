@@ -13,17 +13,14 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-# Ensure required NLTK data is downloaded
 nltk.download('vader_lexicon')
 nltk.download('punkt')
 nltk.download('punkt_tab')
 nltk.download('stopwords')
 nltk.download('wordnet')
 
-# Initialize Sentiment Intensity Analyzer
 sia = SentimentIntensityAnalyzer()
 
-# Preprocess text function
 stop_words = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()
 
@@ -36,26 +33,21 @@ def preprocess_text(text):
     tokens = [lemmatizer.lemmatize(word) for word in tokens]
     return ' '.join(tokens)
 
-# Function to load dataset from GitHub
 @st.cache_data
 def load_and_process_data():
-    # GitHub URL for the reduced dataset
+    #streamlit did not work with datasets package so using a reduced jsonl file here
     url = "https://github.com/paytonncourt96/Amazon_Reviews_Sent_Analysis/raw/main/reduced_Movies_and_TV.jsonl.gz"
     
-    # Download and read the .jsonl.gz file
     response = requests.get(url)
     if response.status_code != 200:
         raise RuntimeError(f"Failed to download dataset: {response.status_code}")
     
-    # Read the dataset into a DataFrame
     with gzip.open(BytesIO(response.content), 'rt', encoding='utf-8') as f:
         data = [json.loads(line) for line in f]
     df = pd.DataFrame(data)
     
-    # Preprocessing
     df['cleaned_text'] = df['text'].apply(preprocess_text)
     
-    # Sentiment Analysis
     df['sentiment_score'] = df['cleaned_text'].apply(lambda x: sia.polarity_scores(x)['compound'])
     df['sentiment_analysis_rating'] = df['sentiment_score'].apply(lambda x: int(round(((x + 1) / 2) * 4 + 1)))
     df['textblob_sentiment'] = df['cleaned_text'].apply(lambda x: TextBlob(x).sentiment.polarity)
@@ -63,10 +55,10 @@ def load_and_process_data():
     
     return df
 
-# Streamlit app functions
 def home_page():
     st.title("Home")
-    st.write("Welcome to the Amazon Reviews Sentiment Analysis app!")
+    st.title("Amazon Reviews Sentiment Analysis app")
+    st.write("Katherine Beyer, Courtney Shammas, Onur Tekiner")
     st.write("""
         Navigate through the sidebar to explore:
         - Methods
@@ -84,7 +76,7 @@ def decomposition():
     """)
 
 def vader_lexicon(df):
-    st.title("Vader Lexicon Sentiment Analysis")
+    st.title("Vader Lexicon Sentiment Analysis vs. Actual Stars Given")
     actual_rating_counts = df['rating'].value_counts().sort_index()
     sentiment_analysis_counts = df['sentiment_analysis_rating'].value_counts().sort_index()
     st.bar_chart(pd.DataFrame({
@@ -93,7 +85,7 @@ def vader_lexicon(df):
     }))
 
 def textblob(df):
-    st.title("TextBlob Sentiment Analysis")
+    st.title("TextBlob Sentiment Analysis vs. Actual Stars Given")
     actual_rating_counts = df['rating'].value_counts().sort_index()
     textblob_rating_counts = df['textblob_rating'].value_counts().sort_index()
     st.bar_chart(pd.DataFrame({
@@ -102,7 +94,7 @@ def textblob(df):
     }))
 
 def overall_performance(df):
-    st.title("Overall Performance Comparison")
+    st.title("Overall Performance Comparison: ")
     full_range = range(1, 6)
     actual_rating_counts = df['rating'].value_counts().reindex(full_range, fill_value=0)
     sentiment_analysis_counts = df['sentiment_analysis_rating'].value_counts().reindex(full_range, fill_value=0)
@@ -121,17 +113,14 @@ def overall_performance(df):
     ax.legend()
     st.pyplot(fig)
 
-# Main function
 def main():
-    # Load and process data
     df = load_and_process_data()
-    
-    # Sidebar navigation
+
+    #sidebr
     st.sidebar.title("Navigation")
     page_options = ["Home", "Methods", "Vader Lexicon", "TextBlob", "Overall Performance"]
     choice = st.sidebar.selectbox("Go to", page_options)
 
-    # Navigation logic
     if choice == "Home":
         home_page()
     elif choice == "Methods":
@@ -145,4 +134,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
