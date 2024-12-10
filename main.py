@@ -56,7 +56,7 @@ def load_and_process_data():
     return df
 
 def home_page():
-    st.title("Amazon Reviews Sentiment Analysis app")
+    st.title("Amazon Movies and TV Reviews Sentiment Analysis app")
     st.write("Katherine Beyer, Courtney Shammas, Onur Tekiner")
     image_url = "https://raw.githubusercontent.com/paytonncourt96/Amazon_Reviews_Sent_Analysis/main/amazon_image.png"
     st.image(image_url, use_column_width=True)
